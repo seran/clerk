@@ -1,4 +1,4 @@
-package io.noshield.models;
+package com.clerk.register.models;
 
 import jakarta.persistence.*;
 import lombok.Getter;

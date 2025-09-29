@@ -1,6 +1,6 @@
-package io.noshield.controllers;
+package com.clerk.register.controllers;
 
-import io.noshield.data.responses.ValidationResponse;
+import com.clerk.register.data.responses.ValidationResponse;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

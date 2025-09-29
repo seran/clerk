@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.noshield</groupId>
-    <artifactId>clerk</artifactId>
+    <groupId>com.clerk</groupId>
+    <artifactId>register</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
@@ -14,7 +14,7 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <start-class>io.noshield.ClerkApplication</start-class>
+        <start-class>com.clerk.register.ClerkApplication</start-class>
 
         <spring.boot.dependencies.version>3.4.5</spring.boot.dependencies.version>
         <postgresql.version>42.7.5</postgresql.version>
@@ -178,7 +178,7 @@
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>${spring.boot.dependencies.version}</version>
                     <configuration>
-                        <mainClass>io.noshield.ClerkApplication</mainClass>
+                        <mainClass>com.clerk.register.ClerkApplication</mainClass>
                         <layout>JAR</layout>
                     </configuration>
                     <executions>

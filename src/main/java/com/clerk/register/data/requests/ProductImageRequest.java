@@ -1,4 +1,4 @@
-package io.noshield.data.requests;
+package com.clerk.register.data.requests;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 

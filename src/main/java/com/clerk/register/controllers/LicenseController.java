@@ -1,11 +1,11 @@
-package io.noshield.controllers;
+package com.clerk.register.controllers;
 
-import io.noshield.data.requests.DeleteItemRequest;
-import io.noshield.data.requests.LicenseCreateRequest;
-import io.noshield.models.License;
-import io.noshield.models.Product;
-import io.noshield.repositories.LicenseRepository;
-import io.noshield.repositories.ProductRepository;
+import com.clerk.register.data.requests.DeleteItemRequest;
+import com.clerk.register.data.requests.LicenseCreateRequest;
+import com.clerk.register.models.License;
+import com.clerk.register.models.Product;
+import com.clerk.register.repositories.LicenseRepository;
+import com.clerk.register.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

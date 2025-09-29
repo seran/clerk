@@ -1,8 +1,8 @@
-package io.noshield.controllers;
+package com.clerk.register.controllers;
 
-import io.noshield.data.requests.ProductImageRequest;
-import io.noshield.models.Product;
-import io.noshield.repositories.ProductRepository;
+import com.clerk.register.data.requests.ProductImageRequest;
+import com.clerk.register.models.Product;
+import com.clerk.register.repositories.ProductRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

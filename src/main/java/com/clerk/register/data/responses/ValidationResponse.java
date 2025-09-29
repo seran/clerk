@@ -1,4 +1,4 @@
-package io.noshield.data.responses;
+package com.clerk.register.data.responses;
 
 public class ValidationResponse {
     public Boolean valid;

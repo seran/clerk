@@ -1,4 +1,4 @@
-package io.noshield.data.requests;
+package com.clerk.register.data.requests;
 
 public class DeleteItemRequest {
     public Long id;

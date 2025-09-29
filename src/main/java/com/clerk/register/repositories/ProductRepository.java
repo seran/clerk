@@ -1,6 +1,6 @@
-package io.noshield.repositories;
+package com.clerk.register.repositories;
 
-import io.noshield.models.Product;
+import com.clerk.register.models.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
