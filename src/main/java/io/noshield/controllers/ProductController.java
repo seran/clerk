@@ -1,36 +1,44 @@
 package io.noshield.controllers;
 
-import io.noshield.models.ProductModel;
+import io.noshield.data.requests.DeleteItemRequest;
+import io.noshield.models.Product;
 import io.noshield.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/api/product")
 public class ProductController {
 
     @Autowired
     private ProductRepository productRepository;
 
-    @PostMapping("/create")
-    public ProductModel createProduct(@RequestBody ProductModel productModel) {
-        return productRepository.save(productModel);
+    @PostMapping("/")
+    public Product createProduct(@RequestBody Product product) {
+        return productRepository.save(product);
     }
 
-    @GetMapping(path = "/product/{id}")
-    public ProductModel getProductById( @PathVariable("id") Long id) {
+    @GetMapping(path = "/all")
+    public List<Product> getProducts() {
+        return productRepository.findAll();
+    }
+
+    @GetMapping(path = "/{id}")
+    public Product getProductById(@PathVariable("id") Long id) {
         return productRepository.findById(id).orElse(null);
     }
 
-    @PatchMapping(path = "/product")
-    public ProductModel updateProduct(@RequestBody ProductModel productModel) {
-        return productRepository.save(productModel);
+    @PatchMapping(path = "/")
+    public Product updateProduct(@RequestBody Product product) {
+        return productRepository.save(product);
     }
 
-    @DeleteMapping
-    public ResponseEntity<String> deleteProduct(@RequestBody ProductModel productModel) {
-        productRepository.delete(productModel);
+    @DeleteMapping(path = "/")
+    public ResponseEntity<String> deleteProduct(@RequestBody DeleteItemRequest request) {
+        productRepository.deleteById(request.id);
         return ResponseEntity.ok("Deleted");
     }
 

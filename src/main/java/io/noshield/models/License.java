@@ -2,10 +2,11 @@ package io.noshield.models;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "licenses")
-public class LicenseModel {
+public class License {
 
     @Getter
     @Id
@@ -18,15 +19,18 @@ public class LicenseModel {
     @Getter
     private Boolean active;
 
-    @OneToOne
-    private ProductModel product;
+    @Setter
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     @Getter
+    @Setter
     private Long userId;
 
-    public LicenseModel() {}
+    public License() {}
 
-    public LicenseModel(String key, Boolean active) {
+    public License(String key, Boolean active) {
         this.key = key;
         this.active = active;
     }
@@ -38,5 +42,6 @@ public class LicenseModel {
     public void deactivate() {
         this.active = false;
     }
+
 }
 

@@ -2,10 +2,13 @@ package io.noshield.models;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Table(name = "products")
-public class ProductModel {
+public class Product {
 
     @Getter
     @Id
@@ -19,11 +22,18 @@ public class ProductModel {
     private String description;
 
     @Getter
+    @Setter
+    private String imageURL;
+
+    @Getter
     private Boolean active;
 
-    public ProductModel() {}
+    @OneToMany(mappedBy = "product")
+    private List<License>  licenses;
 
-    public ProductModel(String name, String description, Boolean active) {
+    public Product() {}
+
+    public Product(String name, String description, Boolean active) {
         this.name = name;
         this.description = description;
         this.active = active;
