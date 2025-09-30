@@ -1,8 +1,6 @@
 package com.clerk.register.controllers;
 
 import com.clerk.register.data.responses.ValidationResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
