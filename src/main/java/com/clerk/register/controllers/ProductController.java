@@ -4,6 +4,7 @@ import com.clerk.register.data.requests.DeleteItemRequest;
 import com.clerk.register.data.requests.ProductImageRequest;
 import com.clerk.register.models.Product;
 import com.clerk.register.repositories.ProductRepository;
+import com.clerk.register.services.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +24,17 @@ public class ProductController {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private ProductService productService;
+
     @PostMapping("/")
     public Product createProduct(@RequestBody Product product) {
-        return productRepository.save(product);
+        return productService.addProduct(product);
     }
 
     @GetMapping(path = "/all")
     public List<Product> getProducts() {
-        return productRepository.findAll();
+        return productService.getAllProducts();
     }
 
     @GetMapping(path = "/{id}")
