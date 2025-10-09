@@ -12,7 +12,7 @@ public class Product {
 
     @Getter
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Getter
@@ -28,7 +28,7 @@ public class Product {
     @Getter
     private Boolean active;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<License>  licenses;
 
     public Product() {}

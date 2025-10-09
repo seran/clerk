@@ -10,18 +10,18 @@ public class License {
 
     @Getter
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Getter
-    private String key;
+    private String licenseKey;
 
     @Getter
     private Boolean active;
 
     @Setter
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "product_id", referencedColumnName = "id", nullable = false)
     private Product product;
 
     @Getter
@@ -30,8 +30,8 @@ public class License {
 
     public License() {}
 
-    public License(String key, Boolean active) {
-        this.key = key;
+    public License(String licenseKey, Boolean active) {
+        this.licenseKey = licenseKey;
         this.active = active;
     }
 

@@ -1,5 +1,5 @@
 server:
-  port: 8082
+  port: 19090
 
 spring:
   application:
@@ -20,3 +20,8 @@ spring:
 grpc:
   server:
     port: 9092
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,env,metrics
