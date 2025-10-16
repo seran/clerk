@@ -7,7 +7,8 @@ public class ProductImageRequest {
             name = "url",
             format = "url",
             example = "https://example.com/data/json",
-            description = "Remote URL to fetch image."
+            description = "Remote URL to fetch image.",
+            requiredMode = Schema.RequiredMode.REQUIRED
     )
     public String url;
 

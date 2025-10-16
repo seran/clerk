@@ -57,7 +57,8 @@ public class LicenseController {
     }
 
     @DeleteMapping(path = "/")
-    public void deleteLicense(@RequestBody DeleteItemRequest request) {
+    public ResponseEntity<?> deleteLicense(@RequestBody DeleteItemRequest request) {
         licenseRepository.deleteById(request.id);
+        return ResponseEntity.ok().build();
     }
 }

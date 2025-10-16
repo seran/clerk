@@ -53,7 +53,7 @@ public class ProductController {
         return ResponseEntity.ok("Deleted");
     }
 
-    @PostMapping("/image")
+    @PostMapping("/fetch/image")
     public ResponseEntity<String> uploadImage(@RequestBody ProductImageRequest request) {
         if (request.url != null) {
             try {
@@ -80,7 +80,7 @@ public class ProductController {
                     }
                 }
 
-                return ResponseEntity.status(204).body("Unable to fetch.");
+                return ResponseEntity.status(422).body("Unable to fetch.");
             } catch (Exception e) {
                 return ResponseEntity.badRequest().body(e.getMessage());
             }
