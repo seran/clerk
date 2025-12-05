@@ -13,9 +13,11 @@ public class License {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Setter
     @Getter
     private String licenseKey;
 
+    @Setter
     @Getter
     private Boolean active;
 

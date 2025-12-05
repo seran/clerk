@@ -10,22 +10,23 @@
     <packaging>jar</packaging>
 
     <properties>
-        <maven.compiler.source>25</maven.compiler.source>
-        <maven.compiler.target>25</maven.compiler.target>
+        <java.version>25</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <start-class>com.clerk.register.ClerkApplication</start-class>
 
-        <spring.boot.dependencies.version>4.0.0-M3</spring.boot.dependencies.version>
-        <postgresql.version>42.7.7</postgresql.version>
-        <grpc.version>1.75.0</grpc.version>
+        <spring.boot.dependencies.version>4.0.0</spring.boot.dependencies.version>
+        <swagger.annotations.version>2.2.41</swagger.annotations.version>
+        <postgresql.version>42.7.8</postgresql.version>
+        <grpc.version>1.77.0</grpc.version>
         <protobuf.version>4.30.2</protobuf.version>
         <protobuf-plugin.version>0.6.1</protobuf-plugin.version>
         <jakarta.annotation.api.version>3.0.0</jakarta.annotation.api.version>
         <simple.grpc.version>0.1.0</simple.grpc.version>
         <reactive.grpc.version>1.2.4</reactive.grpc.version>
         <jedis.version>6.0.0</jedis.version>
-        <swagger.annotations.version>2.2.24</swagger.annotations.version>
     </properties>
 
 
@@ -79,6 +80,9 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <version>1.18.42</version>
+            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
 
         <dependency>
@@ -163,12 +167,25 @@
             <extension>
                 <groupId>kr.motd.maven</groupId>
                 <artifactId>os-maven-plugin</artifactId>
-                <version>1.7.0</version>
+                <version>1.7.1</version>
             </extension>
         </extensions>
 
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <annotationProcessorPaths>
+                            <path>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                                <version>1.18.42</version>
+                            </path>
+                        </annotationProcessorPaths>
+                    </configuration>
+                </plugin>
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
@@ -176,6 +193,19 @@
                     <configuration>
                         <mainClass>com.clerk.register.ClerkApplication</mainClass>
                         <layout>JAR</layout>
+                        <excludes>
+                            <exclude>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                            </exclude>
+                        </excludes>
+                        <annotationProcessorPaths>
+                            <path>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                                <version>1.18.42</version>
+                            </path>
+                        </annotationProcessorPaths>
                     </configuration>
                     <executions>
                         <execution>

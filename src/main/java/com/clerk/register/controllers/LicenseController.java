@@ -6,7 +6,6 @@ import com.clerk.register.models.License;
 import com.clerk.register.models.Product;
 import com.clerk.register.repositories.LicenseRepository;
 import com.clerk.register.repositories.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,11 +15,14 @@ import java.util.List;
 @RequestMapping("/api/license")
 public class LicenseController {
 
-    @Autowired
-    private LicenseRepository licenseRepository;
+    private final LicenseRepository licenseRepository;
 
-    @Autowired
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
+
+    public LicenseController(LicenseRepository licenseRepository, ProductRepository productRepository) {
+        this.licenseRepository = licenseRepository;
+        this.productRepository = productRepository;
+    }
 
     @PostMapping(path = "/")
     public ResponseEntity<String> createLicense(@RequestBody LicenseCreateRequest request) {
