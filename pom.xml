@@ -27,6 +27,7 @@
         <simple.grpc.version>0.1.0</simple.grpc.version>
         <reactive.grpc.version>1.2.4</reactive.grpc.version>
         <jedis.version>6.0.0</jedis.version>
+        <jsonwebtoken.version>0.13.0</jsonwebtoken.version>
     </properties>
 
 
@@ -69,6 +70,21 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-restclient</artifactId>
         </dependency>
 
         <dependency>
@@ -159,6 +175,12 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>${jsonwebtoken.version}</version>
+        </dependency>
+
     </dependencies>
 
 
@@ -199,13 +221,13 @@
                                 <artifactId>lombok</artifactId>
                             </exclude>
                         </excludes>
-                        <annotationProcessorPaths>
-                            <path>
-                                <groupId>org.projectlombok</groupId>
-                                <artifactId>lombok</artifactId>
-                                <version>1.18.42</version>
-                            </path>
-                        </annotationProcessorPaths>
+<!--                        <annotationProcessorPaths>-->
+<!--                            <path>-->
+<!--                                <groupId>org.projectlombok</groupId>-->
+<!--                                <artifactId>lombok</artifactId>-->
+<!--                                <version>1.18.42</version>-->
+<!--                            </path>-->
+<!--                        </annotationProcessorPaths>-->
                     </configuration>
                     <executions>
                         <execution>

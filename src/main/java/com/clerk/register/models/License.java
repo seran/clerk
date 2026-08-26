@@ -1,36 +1,34 @@
 package com.clerk.register.models;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "licenses")
+@NoArgsConstructor
+@Getter
+@Setter
 public class License {
 
-    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
     private Long id;
 
-    @Setter
-    @Getter
     private String licenseKey;
 
-    @Setter
-    @Getter
     private Boolean active;
 
-    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", referencedColumnName = "id", nullable = false)
     private Product product;
 
-    @Getter
-    @Setter
     private Long userId;
 
-    public License() {}
+    private String activationSecret;
 
     public License(String licenseKey, Boolean active) {
         this.licenseKey = licenseKey;

@@ -1,37 +1,39 @@
 package com.clerk.register.models;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
 
 @Entity
 @Table(name = "products")
+@NoArgsConstructor
+@Getter
+@Setter
 public class Product {
 
     @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
     private Long id;
 
-    @Getter
     private String name;
 
-    @Getter
     private String description;
 
-    @Getter
-    @Setter
     private String imageURL;
 
-    @Getter
     private Boolean active;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<License>  licenses;
+    private Long ownerId;
 
-    public Product() {}
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @Setter(lombok.AccessLevel.NONE)
+    private List<License>  licenses;
 
     public Product(String name, String description, Boolean active) {
         this.name = name;

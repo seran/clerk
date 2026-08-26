@@ -1,12 +1,17 @@
 package com.clerk.register.controllers;
 
 import com.clerk.register.data.requests.DeleteItemRequest;
+import com.clerk.register.data.requests.ProductCreateRequest;
 import com.clerk.register.data.requests.ProductImageRequest;
+import com.clerk.register.data.responses.ProductResponse;
 import com.clerk.register.models.Product;
 import com.clerk.register.services.ProductService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,19 +22,17 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/product")
+@RequiredArgsConstructor
 public class ProductController {
 
     Logger logger = LoggerFactory.getLogger(ProductController.class);
 
     private final ProductService productService;
 
-    public ProductController(ProductService productService) {
-        this.productService = productService;
-    }
-
     @PostMapping("/")
-    public Product createProduct(@RequestBody Product product) {
-        return productService.addProduct(product);
+    @ResponseStatus(HttpStatus.CREATED)
+    public ProductResponse createProduct(@Valid @RequestBody ProductCreateRequest request) {
+        return productService.createProduct(request);
     }
 
     @GetMapping(path = "/all")
@@ -43,14 +46,15 @@ public class ProductController {
     }
 
     @PatchMapping(path = "/")
+    @ResponseStatus(HttpStatus.OK)
     public Product updateProduct(@RequestBody Product product) {
         return productService.updateProduct(product);
     }
 
     @DeleteMapping(path = "/")
-    public ResponseEntity<String> deleteProduct(@RequestBody DeleteItemRequest request) {
-        productService.deleteProduct(request.id);
-        return ResponseEntity.ok("Deleted");
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteProduct(@PathVariable Long id) {
+        productService.deleteProduct(id);
     }
 
     @PostMapping("/fetch/image")

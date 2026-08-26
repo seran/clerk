@@ -1,7 +1,11 @@
 package com.clerk.register.data.responses;
 
-public class ValidationResponse {
-    public Boolean valid;
+public record ValidationResponse (boolean valid, String message) {
+    public static ValidationResponse accepted() {
+        return new ValidationResponse(true, "Valid license");
+    }
 
-    public String message;
+    public static ValidationResponse rejected(String message) {
+        return new ValidationResponse(false, "Invalid license");
+    }
 }
