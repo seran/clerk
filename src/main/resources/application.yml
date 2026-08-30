@@ -25,3 +25,7 @@ management:
     web:
       exposure:
         include: health,info,env,metrics
+clerk:
+  jwt:
+    accept-unsigned-tokens: true
+    secret: clerk-dev-signing-key-change-me-please
