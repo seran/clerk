@@ -24,8 +24,6 @@
         <protobuf.version>4.30.2</protobuf.version>
         <protobuf-plugin.version>0.6.1</protobuf-plugin.version>
         <jakarta.annotation.api.version>3.0.0</jakarta.annotation.api.version>
-        <simple.grpc.version>0.1.0</simple.grpc.version>
-        <reactive.grpc.version>1.2.4</reactive.grpc.version>
         <jedis.version>6.0.0</jedis.version>
         <jsonwebtoken.version>0.13.0</jsonwebtoken.version>
     </properties>
@@ -74,6 +72,16 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-grpc-server</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-grpc-client</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>jakarta.annotation</groupId>
             <artifactId>jakarta.annotation-api</artifactId>
         </dependency>
@@ -109,17 +117,6 @@
             <version>${swagger.annotations.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>net.devh</groupId>
-            <artifactId>grpc-server-spring-boot-starter</artifactId>
-            <version>2.15.0.RELEASE</version>
-        </dependency>
-
-        <dependency>
-            <groupId>net.devh</groupId>
-            <artifactId>grpc-spring-boot-starter</artifactId>
-            <version>2.15.0.RELEASE</version>
-        </dependency>
 
         <dependency>
             <groupId>io.grpc</groupId>

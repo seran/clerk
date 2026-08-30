@@ -40,6 +40,10 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
                 .authorizeHttpRequests(requests -> requests
+                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/v1/**", "/api/license/v1/**").permitAll()
+                        .requestMatchers("/api/license/**", "/api/product/**", "/api/validation/**").permitAll()
+                        .requestMatchers("/actuator/**", "/h2-console/**").permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(new AuthFilter(jwtService, userRepository), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(e -> e.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))

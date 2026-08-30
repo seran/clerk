@@ -16,16 +16,17 @@ spring:
   h2:
     console:
       enabled: true
+clerk:
+  jwt:
+    accept-unsigned-tokens: true
+    secret: clerk-dev-signing-key-change-me-please
 
 grpc:
   server:
     port: 9092
+
 management:
   endpoints:
     web:
       exposure:
         include: health,info,env,metrics
-clerk:
-  jwt:
-    accept-unsigned-tokens: true
-    secret: clerk-dev-signing-key-change-me-please
