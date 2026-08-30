@@ -2,27 +2,28 @@ package com.clerk.register.controllers;
 
 import com.clerk.register.data.requests.DeleteItemRequest;
 import com.clerk.register.data.requests.LicenseCreateRequest;
+import com.clerk.register.data.responses.LicenseResponse;
 import com.clerk.register.models.License;
 import com.clerk.register.models.Product;
 import com.clerk.register.repositories.LicenseRepository;
 import com.clerk.register.repositories.ProductRepository;
+import com.clerk.register.services.LicenseService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/license")
+@RequiredArgsConstructor
 public class LicenseController {
 
     private final LicenseRepository licenseRepository;
 
     private final ProductRepository productRepository;
-
-    public LicenseController(LicenseRepository licenseRepository, ProductRepository productRepository) {
-        this.licenseRepository = licenseRepository;
-        this.productRepository = productRepository;
-    }
+    private final LicenseService licenseService;
 
     @PostMapping(path = "/")
     public ResponseEntity<String> createLicense(@RequestBody LicenseCreateRequest request) {
@@ -43,12 +44,14 @@ public class LicenseController {
         return ResponseEntity.badRequest().build();
     }
 
-    @GetMapping(path = "/{id}")
-    public License getLicense(@PathVariable Long id) {
-        return licenseRepository.findById(id).orElse(null);
+    @GetMapping("/{id}")
+    @PreAuthorize("isAuthenticated()")
+    public LicenseResponse getLicense(@PathVariable("id") Long id) {
+        return licenseService.findById(id);
     }
 
     @GetMapping(path = "/all")
+    @PreAuthorize("isAuthenticated()")
     public List<License> getLicense() {
         return licenseRepository.findAll();
     }
