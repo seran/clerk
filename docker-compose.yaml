@@ -1,6 +1,23 @@
-version: '3.8'
-
 services:
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: clerk-db
+    environment:
+      POSTGRES_DB: clerkdb
+      POSTGRES_USER: clerk
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+    ports:
+      - "5432:5432"
+#    volumes:
+#      - clerk-pgdata:/var/lib/postgresql/data
+#      - ./db/init:/docker-entrypoint-initdb.d:ro
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U clerk -d clerkdb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
   app:
     build:
       context: .
@@ -11,11 +28,17 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=docker
       - JAVA_OPTS=-Xmx512m -Xms256m
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/clerkdb
+      - SPRING_DATASOURCE_USERNAME=clerk
+      - SPRING_DATASOURCE_PASSWORD=${POSTGRES_PASSWORD:-postgres}
     volumes:
       - ./logs:/app/logs
     networks:
       - app-network
-    restart: unless-stopped
+    restart: no
+    depends_on:
+      db:
+        condition: service_healthy
     extra_hosts:
       - "host.docker.internal:host-gateway"
     healthcheck:
@@ -28,3 +51,6 @@ services:
 networks:
   app-network:
     driver: bridge
+
+#volumes:
+#  clerk-pgdata:
