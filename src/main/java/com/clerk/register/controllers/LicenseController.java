@@ -1,5 +1,6 @@
 package com.clerk.register.controllers;
 
+import com.clerk.register.data.requests.BatchLicenseRequest;
 import com.clerk.register.data.requests.DeleteItemRequest;
 import com.clerk.register.data.requests.LicenseCreateRequest;
 import com.clerk.register.data.responses.LicenseResponse;
@@ -8,6 +9,7 @@ import com.clerk.register.models.Product;
 import com.clerk.register.repositories.LicenseRepository;
 import com.clerk.register.repositories.ProductRepository;
 import com.clerk.register.services.LicenseService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -56,6 +58,12 @@ public class LicenseController {
     @PreAuthorize("isAuthenticated()")
     public List<License> getLicense() {
         return licenseRepository.findAll();
+    }
+
+    @PostMapping("/batch")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<String> createBatchLicense(@Valid @RequestBody BatchLicenseRequest request) {
+        return ResponseEntity.ok(licenseService.createBatch(request) + " licenses crated");
     }
 
     @PatchMapping("/")
