@@ -24,6 +24,8 @@ clerk:
   jwt:
     accept-unsigned-tokens: true
     secret: clerk-dev-signing-key-change-me-please
+  debug:
+    include-stacktrace: true
 
 grpc:
   server:
@@ -33,4 +35,11 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info,env,metrics
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    env:
+      show-values: always
+    configprops:
+      show-values: always

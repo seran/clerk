@@ -1,4 +1,9 @@
 package com.clerk.register.config;
 
-public record ClerkApiProperties() {
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+@ConfigurationProperties(prefix = "clerk.api")
+public record ClerkApiProperties(
+        String version,
+        boolean legacyEnabled) {
 }
