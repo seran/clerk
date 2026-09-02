@@ -22,12 +22,10 @@ public class LicenseService {
     }
 
     public LicenseResponse findById(Long id) {
-        return LicenseResponse.from(require(id));
-    }
-
-    private License require(Long id) {
-        return licenseRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("License", id));
+        return LicenseResponse.from(
+                licenseRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("License", id))
+        );
     }
 
 }

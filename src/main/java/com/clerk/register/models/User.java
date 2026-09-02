@@ -22,6 +22,8 @@ public class User {
 
     private String password;
 
+    private String hashed_password;
+
     private String email;
 
     @Enumerated(EnumType.STRING)
@@ -33,4 +35,5 @@ public class User {
         this.email = email;
         this.role = role;
     }
+
 }
