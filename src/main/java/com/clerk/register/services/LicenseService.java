@@ -25,8 +25,11 @@ public class LicenseService {
     private final ProductRepository productRepository;
     private final ObjectMapper objectMapper;
 
-    public List<License> findAll() {
-        return licenseRepository.findAll();
+    public List<LicenseResponse> findAll() {
+        return licenseRepository
+                .findAll()
+                .stream()
+                .map(LicenseResponse::from).toList();
     }
 
     public LicenseResponse findById(Long id) {

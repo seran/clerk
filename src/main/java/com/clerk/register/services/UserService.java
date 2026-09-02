@@ -44,10 +44,10 @@ public class UserService {
     }
 
     @Transactional
-    public UserResponseLegacy updateRole(Long id, Role role) {
+    public UserResponse updateRole(Long id, Role role) {
         User user = findUserById(id);
         user.setRole(role);
-        return UserResponseLegacy.from(userRepository.save(user));
+        return UserResponse.from(userRepository.save(user));
     }
 
     @Transactional
