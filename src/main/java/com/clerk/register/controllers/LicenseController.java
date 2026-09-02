@@ -12,8 +12,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import tools.jackson.core.JacksonException;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/license")
@@ -57,8 +59,12 @@ public class LicenseController {
     }
 
     @PatchMapping("/")
-    public License updateLicense(@RequestBody License license) {
-        return licenseRepository.save(license);
+    @PreAuthorize("isAuthenticated()")
+    public LicenseResponse updateLicense(
+            @PathVariable("id") Long id,
+            @RequestBody Map<String, Object> changes
+    ) throws JacksonException {
+        return licenseService.patch(id, changes);
     }
 
     @DeleteMapping(path = "/")

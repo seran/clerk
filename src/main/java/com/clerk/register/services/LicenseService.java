@@ -7,8 +7,11 @@ import com.clerk.register.repositories.LicenseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -16,16 +19,27 @@ import java.util.List;
 public class LicenseService {
 
     private final LicenseRepository licenseRepository;
+    private final ObjectMapper objectMapper;
 
     public List<License> findAll() {
         return licenseRepository.findAll();
     }
 
     public LicenseResponse findById(Long id) {
-        return LicenseResponse.from(
-                licenseRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("License", id))
-        );
+        return LicenseResponse.from(find(id));
     }
+
+    public LicenseResponse patch(Long id, Map<String, Object> changes) throws JacksonException {
+        License license = find(id);
+        objectMapper.updateValue(license, changes);
+        return LicenseResponse.from(license);
+    }
+
+    private License find(Long id) {
+        return licenseRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("License", id));
+    }
+
+
 
 }
