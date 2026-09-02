@@ -4,13 +4,17 @@ server:
 spring:
   application:
     name: clerk
+#  autoconfigure:
+#    exclude:
+#      - net.devh.boot.grpc.server.autoconfigure.GrpcServerSecurityAutoConfiguration
+#      - net.devh.boot.grpc.client.autoconfigure.GrpcClientSecurityAutoConfiguration
   datasource:
-    url: jdbc:h2:mem:clerkdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    driver-class-name: org.h2.Driver
-    username: sa
-    password: password
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/clerkdb}
+    driver-class-name: org.postgresql.Driver
+    username: ${SPRING_DATASOURCE_USERNAME:clerk}
+    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update
   h2:

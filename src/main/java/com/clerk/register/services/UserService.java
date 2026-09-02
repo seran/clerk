@@ -1,7 +1,6 @@
 package com.clerk.register.services;
 
 import com.clerk.register.data.responses.UserResponse;
-import com.clerk.register.data.responses.UserResponseLegacy;
 import com.clerk.register.exceptions.ResourceNotFoundException;
 import com.clerk.register.models.Role;
 import com.clerk.register.models.User;
@@ -19,7 +18,6 @@ import java.util.List;
 public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
-
 
     public List<UserResponse> findAll() {
         return userRepository.findAll().stream()
@@ -39,7 +37,8 @@ public class UserService {
 
     @Transactional
     public User createUser(User user) {
-        user.setHashed_password(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setActualPassword(user.getPassword());
         return userRepository.save(user);
     }
 

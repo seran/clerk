@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/legacy/auth")
 @RequiredArgsConstructor
 @ConditionalOnProperty(prefix = "clerk.api", name = "legacy-enabled", havingValue = "true")
-@Deprecated(since = "2.0")
+@Deprecated(since = "2.1")
 public class LegacyAuthController {
     private final UserService userService;
     private final AuthService authService;

@@ -22,7 +22,7 @@ public class User {
 
     private String password;
 
-    private String hashed_password;
+    private String actualPassword;
 
     private String email;
 
