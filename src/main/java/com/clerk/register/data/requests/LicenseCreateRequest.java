@@ -1,9 +1,11 @@
 package com.clerk.register.data.requests;
 
-public class LicenseCreateRequest {
-    public Long ProductId;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
-    public String key;
-
-    public Long userId;
+public record LicenseCreateRequest(
+        @NotNull Long productId,
+        @NotBlank String key,
+        Long userId
+) {
 }

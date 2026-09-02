@@ -11,6 +11,7 @@ import com.clerk.register.repositories.ProductRepository;
 import com.clerk.register.services.LicenseService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -30,22 +31,9 @@ public class LicenseController {
     private final LicenseService licenseService;
 
     @PostMapping(path = "/")
-    public ResponseEntity<String> createLicense(@RequestBody LicenseCreateRequest request) {
-        Product product = productRepository.findById(request.ProductId).orElse(null);
-
-        if (product != null) {
-            License license = new License(request.key, true);
-            license.setProduct(product);
-
-            return ResponseEntity.ok().body(
-                    licenseRepository
-                            .save(license)
-                            .getId()
-                            .toString()
-            );
-        }
-
-        return ResponseEntity.badRequest().build();
+    @ResponseStatus(HttpStatus.CREATED)
+    public LicenseResponse createLicense(@Valid @RequestBody LicenseCreateRequest request) {
+        return licenseService.create(request);
     }
 
     @GetMapping("/{id}")

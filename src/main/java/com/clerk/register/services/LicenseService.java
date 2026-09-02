@@ -1,6 +1,7 @@
 package com.clerk.register.services;
 
 import com.clerk.register.data.requests.BatchLicenseRequest;
+import com.clerk.register.data.requests.LicenseCreateRequest;
 import com.clerk.register.data.responses.LicenseResponse;
 import com.clerk.register.exceptions.ResourceNotFoundException;
 import com.clerk.register.models.License;
@@ -45,6 +46,14 @@ public class LicenseService {
     private License findLicenseById(Long id) {
         return licenseRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("License", id));
+    }
+
+    @Transactional
+    public LicenseResponse create(LicenseCreateRequest request) {
+        License license = new License(request.key(), true);
+        license.setProduct(getProductById(request.productId()));
+        license.setUserId(request.userId());
+        return LicenseResponse.from(licenseRepository.save(license));
     }
 
     @Transactional
