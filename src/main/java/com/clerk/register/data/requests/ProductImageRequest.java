@@ -1,16 +1,10 @@
 package com.clerk.register.data.requests;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 
-public class ProductImageRequest {
-    @Schema(
-            name = "url",
-            format = "url",
-            example = "https://example.com/data/json",
-            description = "Remote URL to fetch image.",
-            requiredMode = Schema.RequiredMode.REQUIRED
-    )
-    public String url;
+import jakarta.validation.constraints.NotBlank;
 
-    public Long productId;
+public record ProductImageRequest(
+        @NotBlank String url,
+        Long productId
+) {
 }

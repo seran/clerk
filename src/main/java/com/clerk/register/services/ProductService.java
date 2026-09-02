@@ -1,25 +1,31 @@
 package com.clerk.register.services;
 
 import com.clerk.register.data.requests.ProductCreateRequest;
+import com.clerk.register.data.requests.ProductImageRequest;
 import com.clerk.register.data.responses.ProductResponse;
 import com.clerk.register.models.Product;
 import com.clerk.register.repositories.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestClient;
 import tools.jackson.core.JacksonException;
 import tools.jackson.databind.ObjectMapper;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
 @Service
 @Transactional(readOnly = true)
+@Slf4j
 public class ProductService {
-
     private final ProductRepository productRepository;
     private final ObjectMapper objectMapper;
+    private final RestClient outboundRestClient;
 
     public List<Product> getAllProducts() {
         return productRepository.findAll();
@@ -53,6 +59,27 @@ public class ProductService {
 
     public Product findProductById(Long id) {
         return productRepository.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
+    }
+
+    @Transactional
+    public ResponseEntity<String> fetchImage(ProductImageRequest request) {
+        log.info("Fetching image from {}", request.url());
+
+        ResponseEntity<String> response = outboundRestClient.get()
+                .uri(URI.create(request.url()))
+                .retrieve()
+                .onStatus(s -> true, (req, res) -> {})
+                .toEntity(String.class);
+
+        if (request.productId() != null) {
+            Product product = findProductById(request.productId());
+            product.setImageURL(response.getBody());
+            productRepository.save(product);
+        }
+
+        return ResponseEntity
+                .status(response.getStatusCode())
+                .body(response.getBody());
     }
 
 }

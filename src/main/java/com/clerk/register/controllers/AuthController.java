@@ -5,7 +5,6 @@ import com.clerk.register.data.responses.LoginResponse;
 import com.clerk.register.data.responses.UserResponse;
 import com.clerk.register.security.ClerkUserPrincipal;
 import com.clerk.register.services.AuthService;
-import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthController {
-
     private final AuthService authService;
 
     @PostMapping("/login")

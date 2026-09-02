@@ -5,9 +5,7 @@ import com.clerk.register.data.requests.DeleteItemRequest;
 import com.clerk.register.data.requests.LicenseCreateRequest;
 import com.clerk.register.data.responses.LicenseResponse;
 import com.clerk.register.models.License;
-import com.clerk.register.models.Product;
 import com.clerk.register.repositories.LicenseRepository;
-import com.clerk.register.repositories.ProductRepository;
 import com.clerk.register.services.LicenseService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,10 +22,7 @@ import java.util.Map;
 @RequestMapping("/api/license")
 @RequiredArgsConstructor
 public class LicenseController {
-
     private final LicenseRepository licenseRepository;
-
-    private final ProductRepository productRepository;
     private final LicenseService licenseService;
 
     @PostMapping(path = "/")
