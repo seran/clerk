@@ -3,7 +3,7 @@ package com.clerk.register.data.requests;
 
 import jakarta.validation.constraints.NotBlank;
 
-public record ProductImageRequest(
+public record ProductRemoteFetchRequest(
         @NotBlank String url,
         Long productId
 ) {

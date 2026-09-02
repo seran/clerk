@@ -1,14 +1,12 @@
 package com.clerk.register.controllers;
 
 import com.clerk.register.data.requests.ProductCreateRequest;
-import com.clerk.register.data.requests.ProductImageRequest;
+import com.clerk.register.data.requests.ProductRemoteFetchRequest;
 import com.clerk.register.data.responses.ProductResponse;
 import com.clerk.register.models.Product;
 import com.clerk.register.services.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -56,8 +54,12 @@ public class ProductController {
     }
 
     @PostMapping("/fetch/image")
-    public ResponseEntity<String> fetchImage(@Valid @RequestBody ProductImageRequest request) {
+    public ResponseEntity<String> fetchImage(@Valid @RequestBody ProductRemoteFetchRequest request) {
         return productService.fetchImage(request);
     }
 
+    @PostMapping("/import/metadata")
+    public ProductResponse importMetadata(@Valid @RequestBody ProductRemoteFetchRequest request) throws JacksonException {
+        return productService.importMetadata(request);
+    }
 }

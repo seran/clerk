@@ -1,12 +1,13 @@
 package com.clerk.register.services;
 
 import com.clerk.register.data.requests.ProductCreateRequest;
-import com.clerk.register.data.requests.ProductImageRequest;
+import com.clerk.register.data.requests.ProductRemoteFetchRequest;
 import com.clerk.register.data.responses.ProductResponse;
 import com.clerk.register.models.Product;
 import com.clerk.register.repositories.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -62,7 +63,7 @@ public class ProductService {
     }
 
     @Transactional
-    public ResponseEntity<String> fetchImage(ProductImageRequest request) {
+    public ResponseEntity<String> fetchImage(ProductRemoteFetchRequest request) {
         log.info("Fetching image from {}", request.url());
 
         ResponseEntity<String> response = outboundRestClient.get()
@@ -80,6 +81,21 @@ public class ProductService {
         return ResponseEntity
                 .status(response.getStatusCode())
                 .body(response.getBody());
+    }
+
+    @Transactional
+    public ProductResponse importMetadata(ProductRemoteFetchRequest request) throws JacksonException {
+        log.info("Importing metadata for product {}", request.productId());
+
+        Map<String, Object> metadata = outboundRestClient.get()
+                .uri(URI.create(request.url()))
+                .retrieve()
+                .body(new ParameterizedTypeReference<Map<String, Object>>() {});
+
+        Product product = findProductById(request.productId());
+        objectMapper.updateValue(product, metadata);
+
+        return ProductResponse.from(productRepository.save(product));
     }
 
 }
