@@ -28,7 +28,7 @@ public class UserService {
     }
 
     public UserResponse findById(Long id) {
-        return UserResponse.from(find(id));
+        return UserResponse.from(findUserById(id));
     }
 
     public User findByUsername(String username) {
@@ -45,7 +45,7 @@ public class UserService {
 
     @Transactional
     public UserResponseLegacy updateRole(Long id, Role role) {
-        User user = find(id);
+        User user = findUserById(id);
         user.setRole(role);
         return UserResponseLegacy.from(userRepository.save(user));
     }
@@ -53,10 +53,10 @@ public class UserService {
     @Transactional
     public void delete(Long id) {
         userRepository
-                .delete(find(id));
+                .delete(findUserById(id));
     }
 
-    private User find(Long id) {
+    private User findUserById(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User", id));
     }
 }

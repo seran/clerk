@@ -26,16 +26,16 @@ public class LicenseService {
     }
 
     public LicenseResponse findById(Long id) {
-        return LicenseResponse.from(find(id));
+        return LicenseResponse.from(findLicenseById(id));
     }
 
     public LicenseResponse patch(Long id, Map<String, Object> changes) throws JacksonException {
-        License license = find(id);
+        License license = findLicenseById(id);
         objectMapper.updateValue(license, changes);
         return LicenseResponse.from(license);
     }
 
-    private License find(Long id) {
+    private License findLicenseById(Long id) {
         return licenseRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("License", id));
     }

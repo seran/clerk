@@ -1,6 +1,5 @@
 package com.clerk.register.controllers;
 
-import com.clerk.register.data.requests.DeleteItemRequest;
 import com.clerk.register.data.requests.ProductCreateRequest;
 import com.clerk.register.data.requests.ProductImageRequest;
 import com.clerk.register.data.responses.ProductResponse;
@@ -10,15 +9,17 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import tools.jackson.core.JacksonException;
 
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/product")
@@ -42,13 +43,16 @@ public class ProductController {
 
     @GetMapping(path = "/{id}")
     public Product getProductById(@PathVariable("id") Long id) {
-        return productService.getProductById(id);
+        return productService.findProductById(id);
     }
 
     @PatchMapping(path = "/")
-    @ResponseStatus(HttpStatus.OK)
-    public Product updateProduct(@RequestBody Product product) {
-        return productService.updateProduct(product);
+    @PreAuthorize("isAuthenticated()")
+    public ProductResponse updateProduct(
+            @PathVariable("id") Long id,
+            Map<String, Object> changes
+    ) throws JacksonException {
+        return productService.patch(id, changes);
     }
 
     @DeleteMapping(path = "/")
@@ -74,7 +78,7 @@ public class ProductController {
                 logger.info("Response status code " + connection.getResponseCode());
 
                 if (connection.getResponseCode() == 200) {
-                    Product product = productService.getProductById(request.productId);
+                    Product product = productService.findProductById(request.productId);
 
                     if (product != null) {
                         product.setImageURL(request.url);

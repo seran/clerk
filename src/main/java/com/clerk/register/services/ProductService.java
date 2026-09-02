@@ -7,8 +7,11 @@ import com.clerk.register.repositories.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Service
@@ -16,6 +19,7 @@ import java.util.List;
 public class ProductService {
 
     private final ProductRepository productRepository;
+    private final ObjectMapper objectMapper;
 
     public List<Product> getAllProducts() {
         return productRepository.findAll();
@@ -36,11 +40,18 @@ public class ProductService {
     }
 
     @Transactional
+    public ProductResponse patch(Long id, Map<String, Object> changes) throws JacksonException {
+        Product product = findProductById(id);
+        objectMapper.updateValue(product, changes);
+        return ProductResponse.from(product);
+    }
+
+    @Transactional
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);
     }
 
-    public Product getProductById(Long id) {
+    public Product findProductById(Long id) {
         return productRepository.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
     }
 
