@@ -16,7 +16,11 @@ spring:
   h2:
     console:
       enabled: true
+
 clerk:
+  api:
+    version: 3.2.0
+    legacy-enabled: true
   jwt:
     accept-unsigned-tokens: true
     secret: clerk-dev-signing-key-change-me-please

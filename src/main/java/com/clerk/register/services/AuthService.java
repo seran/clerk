@@ -15,7 +15,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
@@ -42,11 +41,5 @@ public class AuthService {
 
     public LoginResponse issueFor(User user) {
         return new LoginResponse(jwtService.issueJwt(user), user.getId(), user.getRole().name());
-    }
-
-    @Transactional
-    public User createUser(User user) {
-        user.setHashed_password(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
     }
 }

@@ -40,8 +40,8 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
                 .authorizeHttpRequests(requests -> requests
+                        .requestMatchers("/api/legacy/auth/**", "/api/leacy/license/**").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/api/v1/**", "/api/license/v1/**").permitAll()
                         .requestMatchers("/api/license/**", "/api/product/**", "/api/validation/**").permitAll()
                         .requestMatchers("/api/meta/**", "/api/_internal/**").permitAll()
                         .requestMatchers("/actuator/**", "/h2-console/**").permitAll()

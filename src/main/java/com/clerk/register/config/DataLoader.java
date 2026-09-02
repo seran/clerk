@@ -7,7 +7,7 @@ import com.clerk.register.models.User;
 import com.clerk.register.repositories.LicenseRepository;
 import com.clerk.register.repositories.ProductRepository;
 import com.clerk.register.repositories.UserRepository;
-import com.clerk.register.services.AuthService;
+import com.clerk.register.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class DataLoader implements CommandLineRunner {
 
     private final UserRepository userRepository;
-    private final AuthService authService;
+    private final UserService userService;
     private final ProductRepository productRepository;
     private final LicenseRepository licenseRepository;
     private final PasswordEncoder passwordEncoder;
@@ -48,7 +48,7 @@ public class DataLoader implements CommandLineRunner {
     }
 
     private User createUser(String username, String password, String email, Role role) {
-        return authService.createUser(new User(username, password, email, role));
+        return userService.createUser(new User(username, password, email, role));
     }
 
     private void createLicense(String key, Product product, Long userId, String activationSecret) {
