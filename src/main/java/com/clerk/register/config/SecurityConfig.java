@@ -45,7 +45,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/license/**", "/api/product/**", "/api/validation/**").permitAll()
                         .requestMatchers("/api/meta/**", "/api/_internal/**").permitAll()
                         .requestMatchers("/actuator/**", "/h2-console/**").permitAll()
-                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(new AuthFilter(jwtService, userRepository), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(e -> e.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
