@@ -9,12 +9,6 @@ Application is built using Spring Boot 4 and Java 25.
 ## Running the application
 
 ```bash
-mvn spring-boot:run
-```
-
-Or with Docker:
-
-```bash
 make        # mvn package + docker compose build
 make run    # docker compose up
 ```

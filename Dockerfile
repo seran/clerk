@@ -3,10 +3,10 @@ FROM amazoncorretto:25-alpine-jdk
 WORKDIR /app
 
 # Copy the jar file
-COPY target/*.jar app.jar
+COPY target/register-*.jar app.jar
 
 # Expose port
-EXPOSE 8082
+EXPOSE 19090
 
 # Run the application
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["sh", "-c", "exec java $JAVA_OPTS -jar app.jar"]

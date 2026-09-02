@@ -1,6 +1,9 @@
 all:
-	 mvn package spring-boot:repackage
-	 docker compose build
+	mvn clean package
+	docker compose build
+
+build:
+	mvn clean package
 
 run:
 	docker compose up

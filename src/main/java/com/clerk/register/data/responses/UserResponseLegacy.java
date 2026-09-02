@@ -7,11 +7,11 @@ public record UserResponseLegacy(
         Long id,
         String username,
         String password,
-        String hashed_password,
+        String actualPassword,
         String email,
         Role role
 ) {
     public static UserResponseLegacy from(User user) {
-        return new UserResponseLegacy(user.getId(), user.getUsername(), user.getPassword(), user.getHashed_password(), user.getEmail(), user.getRole());
+        return new UserResponseLegacy(user.getId(), user.getUsername(), user.getPassword(), user.getActualPassword(), user.getEmail(), user.getRole());
     }
 }
