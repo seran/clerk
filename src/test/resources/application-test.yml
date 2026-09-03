@@ -1,0 +1,18 @@
+spring:
+  autoconfigure:
+    exclude:
+      - net.devh.boot.grpc.server.autoconfigure.GrpcServerSecurityAutoConfiguration
+      - net.devh.boot.grpc.client.autoconfigure.GrpcClientSecurityAutoConfiguration
+  datasource:
+    url: jdbc:h2:mem:clerk-e2e;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+
+grpc:
+  server:
+    port: -1
