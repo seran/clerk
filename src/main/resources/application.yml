@@ -25,6 +25,10 @@ clerk:
   api:
     version: 3.2.0
     legacy-enabled: true
+  llm:
+    base-url: http://localhost:11434
+    model: gemma3:1b
+    timeout-ms: 60000
   jwt:
     accept-unsigned-tokens: true
     secret: clerk-dev-signing-key-change-me-please
