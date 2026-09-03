@@ -29,7 +29,7 @@ public class ProductController {
     }
 
     @GetMapping(path = "/all")
-    public List<Product> getProducts() {
+    public List<ProductResponse> getProducts() {
         return productService.getAllProducts();
     }
 
