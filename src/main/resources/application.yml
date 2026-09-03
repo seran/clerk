@@ -4,10 +4,10 @@ server:
 spring:
   application:
     name: clerk
-#  autoconfigure:
-#    exclude:
-#      - net.devh.boot.grpc.server.autoconfigure.GrpcServerSecurityAutoConfiguration
-#      - net.devh.boot.grpc.client.autoconfigure.GrpcClientSecurityAutoConfiguration
+  autoconfigure:
+    exclude:
+      - net.devh.boot.grpc.server.autoconfigure.GrpcServerSecurityAutoConfiguration
+      - net.devh.boot.grpc.client.autoconfigure.GrpcClientSecurityAutoConfiguration
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/clerkdb}
     driver-class-name: org.postgresql.Driver

@@ -28,8 +28,8 @@ public class ProductService {
     private final ObjectMapper objectMapper;
     private final RestClient outboundRestClient;
 
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
+    public List<ProductResponse> getAllProducts() {
+        return productRepository.findAll().stream().map(ProductResponse::from).toList();
     }
 
     public Product updateProduct(Product product) {
