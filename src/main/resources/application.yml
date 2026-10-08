@@ -20,15 +20,35 @@ spring:
   h2:
     console:
       enabled: true
+  ai:
+    ollama:
+      base-url: ${CLERK_LLM_BASE_URL:http://localhost:11434}
+      init:
+        pull-model-strategy: always
+      chat:
+        model: llama3.1:latest
+        num-ctx: 8192
+        num-predict: -1
+        temperature: 0.8
+      embedding:
+        model: nomic-embed-text:latest
+    vectorstore:
+      pgvector:
+        initialize-schema: true
+        index-type: HNSW
+        distance-type: COSINE_DISTANCE
+        dimensions: 768
+    tools:
+      limits:
+        max-calls-per-tool-default: -1
+        max-total-tool-calls: -1
 
 clerk:
+  intelligence:
+    enabled: ${CLERK_INTELLIGENCE_ENABLED:true}
   api:
     version: 3.2.0
     legacy-enabled: true
-  llm:
-    base-url: http://localhost:11434
-    model: gemma3:1b
-    timeout-ms: 60000
   jwt:
     accept-unsigned-tokens: true
     secret: clerk-dev-signing-key-change-me-please
