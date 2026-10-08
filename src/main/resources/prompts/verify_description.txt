@@ -1,0 +1,10 @@
+Check this product listing against the product information Clerk already holds.
+Set valid to true if the description agrees with that information, false if it contradicts it.
+Information about a different product is not a contradiction.
+Set message to one sentence explaining the verdict.
+
+Product information:
+{context}
+
+Listing:
+{query}

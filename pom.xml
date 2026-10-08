@@ -26,6 +26,8 @@
         <jakarta.annotation.api.version>3.0.0</jakarta.annotation.api.version>
         <jedis.version>6.0.0</jedis.version>
         <jsonwebtoken.version>0.13.0</jsonwebtoken.version>
+        <spring.ai.version>2.0.1</spring.ai.version>
+        <projectlombok.version>1.18.30</projectlombok.version>
     </properties>
 
 
@@ -43,6 +45,14 @@
                 <groupId>io.grpc</groupId>
                 <artifactId>grpc-bom</artifactId>
                 <version>${grpc.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.ai</groupId>
+                <artifactId>spring-ai-bom</artifactId>
+                <version>${spring.ai.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -79,6 +89,30 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-grpc-client</artifactId>
+        </dependency>
+
+        <!-- ChatModel + EmbeddingModel -->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-starter-model-ollama</artifactId>
+        </dependency>
+
+        <!-- Document, TokenTextSplitter, filters -->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-vector-store</artifactId>
+        </dependency>
+
+        <!-- RetrievalAugmentationAdvisor -->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-rag</artifactId>
+        </dependency>
+
+        <!-- auto-configured VectorStore -->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-starter-vector-store-pgvector</artifactId>
         </dependency>
 
         <dependency>
@@ -201,7 +235,7 @@
                             <path>
                                 <groupId>org.projectlombok</groupId>
                                 <artifactId>lombok</artifactId>
-                                <version>1.18.42</version>
+                                <version>1.18.48</version>
                             </path>
                         </annotationProcessorPaths>
                     </configuration>
@@ -210,23 +244,6 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>${spring.boot.dependencies.version}</version>
-                    <configuration>
-                        <mainClass>com.clerk.register.ClerkApplication</mainClass>
-                        <layout>JAR</layout>
-                        <excludes>
-                            <exclude>
-                                <groupId>org.projectlombok</groupId>
-                                <artifactId>lombok</artifactId>
-                            </exclude>
-                        </excludes>
-                        <annotationProcessorPaths>
-                            <path>
-                                <groupId>org.projectlombok</groupId>
-                                <artifactId>lombok</artifactId>
-                                <version>1.18.42</version>
-                            </path>
-                        </annotationProcessorPaths>
-                    </configuration>
                     <executions>
                         <execution>
                             <goals>
