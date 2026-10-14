@@ -1,8 +1,10 @@
 # Clerk
 
-**Do not deploy this anywhere public.**
+**DO NOT DEPLOY THIS ANYWHERE PUBLIC.**
 
 A deliberately vulnerable software license management API, built as a training target for OWASP API Top 10 (2023).
+
+Clerk have LLM integration to check and verify product description. Disabled by default.
 
 Application is built using Spring Boot 4 and Java 25.
 
