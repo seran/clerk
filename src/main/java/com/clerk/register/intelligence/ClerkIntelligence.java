@@ -6,12 +6,16 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.api.Advisor;
 import org.springframework.ai.chat.prompt.PromptTemplate;
+import org.springframework.ai.document.Document;
 import org.springframework.ai.rag.advisor.RetrievalAugmentationAdvisor;
 import org.springframework.ai.rag.generation.augmentation.ContextualQueryAugmenter;
 import org.springframework.ai.rag.retrieval.search.VectorStoreDocumentRetriever;
+import org.springframework.ai.transformer.splitter.TokenTextSplitter;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Component
@@ -57,6 +61,30 @@ public class ClerkIntelligence {
                 .call()
                 .entity(ValidationResponse.class)
                 .valid();
+    }
+
+    /**
+     * Index a product for retrieval.
+     * @param product
+     */
+    public void index(Product product) {
+        if (!enabled) {
+            return;
+        }
+
+        // To avoid stale duplicates
+        vectorStore.delete("productId == " + product.getId());
+
+        Document document = new Document(listing(product), Map.of("productId", product.getId()));
+        vectorStore.add(TokenTextSplitter.builder().build().split(List.of(document)));
+    }
+
+    public void dataSeeder(List<Product> products) {
+        try {
+            products.forEach(this::index);
+        } catch (RuntimeException e) {
+            log.warn("Failed to index products", e.getMessage());
+        }
     }
 
     private static Advisor productKnowledge(VectorStore vectorStore) {

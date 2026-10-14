@@ -13,6 +13,14 @@ spring:
     driver-class-name: org.postgresql.Driver
     username: ${SPRING_DATASOURCE_USERNAME:clerk}
     password: ${SPRING_DATASOURCE_PASSWORD:postgres}
+    hikari:
+      maximum-pool-size: 10
+  task:
+    execution:
+      pool:
+        max-size: 4
+        core-size: 2
+        queue-capacity: 100
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
@@ -45,7 +53,7 @@ spring:
 
 clerk:
   intelligence:
-    enabled: ${CLERK_INTELLIGENCE_ENABLED:true}
+    enabled: ${CLERK_INTELLIGENCE_ENABLED:false}
   api:
     version: 3.2.0
     legacy-enabled: true
