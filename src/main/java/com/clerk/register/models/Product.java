@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.util.List;
 
@@ -30,6 +31,9 @@ public class Product {
     private Boolean active;
 
     private Long ownerId;
+
+    @ColumnDefault("false")
+    private boolean checked;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     @Setter(lombok.AccessLevel.NONE)

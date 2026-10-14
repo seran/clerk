@@ -1,5 +1,6 @@
 package com.clerk.register.config;
 
+import com.clerk.register.intelligence.ClerkIntelligence;
 import com.clerk.register.models.License;
 import com.clerk.register.models.Product;
 import com.clerk.register.models.Role;
@@ -23,6 +24,7 @@ public class DataLoader implements CommandLineRunner {
     private final ProductRepository productRepository;
     private final LicenseRepository licenseRepository;
     private final PasswordEncoder passwordEncoder;
+    private final ClerkIntelligence clerkIntelligence;
 
     @Override
     @Transactional
@@ -45,6 +47,8 @@ public class DataLoader implements CommandLineRunner {
 
         createLicense("ACME-0001-ALICE", cad, alice.getId(), "s3cr3t-alice-9d2f");
         createLicense("BETA-0002-BOB", ide, bob.getId(), "s3cr3t-bob-71ac");
+
+        clerkIntelligence.dataSeeder(productRepository.findAll());
     }
 
     private User createUser(String username, String password, String email, Role role) {
