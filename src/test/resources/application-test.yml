@@ -12,6 +12,24 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: create-drop
+  ai:
+    model:
+      chat: none
+      embedding: none
+    vectorstore:
+      type: none
+
+clerk:
+  intelligence:
+    enabled: false
+  api:
+    version: 3.2.0
+    legacy-enabled: true
+  jwt:
+    accept-unsigned-tokens: true
+    secret: clerk-dev-signing-key-change-me-please
+  debug:
+    include-stacktrace: true
 
 grpc:
   server:
