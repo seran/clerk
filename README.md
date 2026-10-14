@@ -19,8 +19,8 @@ The API listens on `http://localhost:19090`. The H2 console is at `/h2-console` 
 
 ## User accounts
 
-| User | Password | Role |
-|------|----------|------|
-| alice | password1 | USER |
-| bob | hunter2 | USER |
-| admin | admin123 | ADMIN |
+| User  | Password  | Role  |
+|-------|-----------|-------|
+| alice | password1 | USER  |
+| bob   | hunter2   | USER  |
+| admin | admin123  | ADMIN |
